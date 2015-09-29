@@ -1,0 +1,58 @@
+<html ng-app="fantasy">
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap.min.js"></script>
+</head>
+<body ng-controller="MainController">
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				    <span class="sr-only">Toggle navigation</span>
+				    <span class="icon-bar"></span>
+				    <span class="icon-bar"></span>
+				    <span class="icon-bar"></span>				   
+      			</button>
+      			 <a class="navbar-brand" href="#">Fantasy Football</a>
+			</div>
+		</div>
+	</nav>
+	<div>
+		<button ng-click="showQB()">QB</button>
+		<button ng-click="showRB()">RB</button>
+	</div>
+	<div class="col-sm-8" ng-repeat="qb in allQB" ng-show="showQB">
+		{{qb.name}}
+		{{qb.team}}
+		{{qb.projected}}
+		{{qb.points.week1}}
+		<div ng-show="showNews">
+		{{qb.news}}
+		</div>
+		<button ng-click="showNews = !showNews">More</button>
+		<button ng-click="addToRoster(qb)">+</button>
+	</div>
+	<div class="col-sm-8" ng-repeat="rb in allRB" ng-show="showRB">
+		{{rb.name}}
+		{{rb.team}}
+		{{rb.projected}}
+		{{rb.points.week1}}
+		<div ng-show="showNews">
+		{{rb.news}}
+		</div>
+		<button ng-click="showNews = !showNews">More</button>
+		<button ng-click="addToRosterRB(rb)">+</button>
+	</div>
+	<div class="col-sm-4">
+		Current Team
+		<div ng-repeat="player in currentUser.currentTeam">
+			{{player.name}}{{player.projected}}
+		</div>
+	</div>
+	<script src="app.js"></script>
+</body>
+</html>
