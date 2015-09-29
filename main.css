@@ -29,8 +29,8 @@
 
 /* STRIKEOUT */
 
-.player-used {
-	text-decoration: line-through;
+.strike {
+    text-decoration: line-through;
 }
 
 .stats-dashboard {

@@ -12,7 +12,7 @@ angular.module('fantasy')
 			this.email = email
 			this.password = password
 			this.currentTeam = {qb: '', wr1: '', wr2: '', rb: '', flex: '', te: '', dst: '', k: '' }
-			this.playersUsed = {qb: [], wr1: [], wr2: [], rb: [], flex: [], te: [], dst: [], k: [] }
+			this.playersUsed = {qb: [], wr1: ["Sammy Watkins"], rb: [], te: [], dst: [], k: [] }
 			this.record = [{wins: 0, losses: 0, points: 0}]
 
 			userList.push(this)
@@ -99,7 +99,7 @@ angular.module('fantasy')
 				projected: 17, 
 				points: {week1: 11.50 , week2: 10.70, week3: 22.00}, 
 				opponents:{week1: "Indianapolis Colts", week2: "New England Patriots", week3: "Miami Dolphins", week4: "New York Giants"},
-				news: "With LeSean McCoy (hamstring) relegated to the sideline for much of Sunday's game, Williams saw 12 carries against the Dolphins. He turned them into 110 yards and his third touchdown in as many games. Rex Ryan admitted after the game McCoy is not close to 100 percent, and there have been rumblings McCoy could be sat down for a week to get back to full health. With more work and the potential for a starting role in his future, Williams needs to be owned in all leagues."
+				news: "With LeSean McCoy (hamstring) relegated to the sideline for much of Sunday\'s game, Williams saw 12 carries against the Dolphins. He turned them into 110 yards and his third touchdown in as many games. Rex Ryan admitted after the game McCoy is not close to 100 percent, and there have been rumblings McCoy could be sat down for a week to get back to full health. With more work and the potential for a starting role in his future, Williams needs to be owned in all leagues."
 			},
 		]
 
@@ -134,18 +134,32 @@ angular.module('fantasy')
 
 		$scope.userTest = function(){
 			new userFactory.User($scope.newName, $scope.newEmail, $scope.newPassword)
-			console.log(userFactory.userList)
+			// console.log(userFactory.userList)
 			$scope.newName = ''
 			$scope.newEmail = ''
 			$scope.newPassword = ''
 		}
 
+
+
 		$scope.addToRoster = function(position, player){
-				if(position === 'qb' && $scope.currentUser.currentTeam[position] !== ''){
+
+			var checkForPreviousUse = function(){
+				for(each in $scope.currentUser.playersUsed[position]){
+					if($scope.currentUser.playersUsed[position][each] === player){
+						return true
+					}
+				}
+			}
+				if(checkForPreviousUse()){
+					console.log('This player has already been used')
+				}
+				else if(position === 'qb' && $scope.currentUser.currentTeam[position] !== ''){
 					console.log("You must remove a player")
 				} else if(position == "wr1" && $scope.currentUser.currentTeam.wr2 !== ''){
 					$scope.currentUser.currentTeam.flex = player
 					$scope.currentUser.playersUsed[position].push(player)
+					console.log(player)
 				} else if (position === "wr1" && $scope.currentUser.currentTeam[position] !==''){
 					$scope.currentUser.currentTeam.wr2 = player
 					$scope.currentUser.playersUsed[position].push(player)
@@ -155,15 +169,28 @@ angular.module('fantasy')
 				}else {
 					$scope.currentUser.currentTeam[position] = player
 					$scope.currentUser.playersUsed[position].push(player)
+					console.log(player)
 				}
 				// else if((position === 'rb' || position === 'wr') && ($scope.currentUser.currentTeam[position] !== '')){
 				// 	$scope.currentUser.currentTeam.flex = position
 				// }
 
 				// console.log($scope.currentUser.currentTeam[position])
-				console.log($scope.currentUser.playersUsed)
 			
 		}
+
+		$scope.checkForMatch = function(wr){
+				for(each in $scope.currentUser.playersUsed){
+					console.log($scope.currentUser.playersUsed[each])
+					console.log(wr.name)
+					if($scope.currentUser.playersUsed[each] == wr.name){
+						return true
+					}
+				}
+			}
+			
+
+		$scope.isMatch = true
 
 		$scope.toggleQB = function(){
 			if($scope.showQB === false){
@@ -193,7 +220,4 @@ angular.module('fantasy')
 			$scope.currentUser.currentTeam[key] = ''
 
 		}
-		console.log($scope.currentUser.currentTeam.rb)
-		console.log(userFactory.userList)
-		console.log($scope.currentUser)
 	}])

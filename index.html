@@ -102,17 +102,17 @@
 				
 				
 				<div ng-show="showNews">
-
+				<img ng-src="http://placehold.it/95x108">
 				{{rb.news}}
 				</div>
 				
 			</div>
 
-			<div class="col-sm-8" ng-repeat="wr in allWR" ng-show="showWR">
+			<div class="col-sm-8" ng-repeat="wr in allWR" ng-show="showWR" >
 				<table class="table table-hover">
 					<tbody>
 					<tr>
-						<td class="player-name-column">{{wr.name}}</td>
+						<td  ng-class="{ strike : checkForMatch(wr) }" class="player-name-column">{{wr.name}}</td>
 						<td class="player-team-column">{{wr.team}}</td>
 						<td class="player-stats-column">{{wr.projected}}</td>
 						<td class="player-stats-column">{{wr.points.week1}}</td>
@@ -126,7 +126,7 @@
 				
 				
 				<div ng-show="showNews">
-
+				<img ng-src="http://placehold.it/95x108">
 				{{wr.news}}
 				</div>
 				
