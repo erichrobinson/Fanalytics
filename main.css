@@ -1,0 +1,39 @@
+/* BORDERS */
+
+.border-right {
+	border-right: 1px solid black;
+}
+
+/* ALIGNMENT */
+
+.align-top {
+	text-align: vertical;
+}
+
+/* TABLES */
+
+.player-name-column {
+	width: 30%;
+	text-align: left;
+}
+
+.player-team-column {
+	width: 25%;
+	text-align: left;
+}
+
+.player-stats-column {
+	width: 12.5%;
+	text-align: center;
+}
+
+/* STRIKEOUT */
+
+.player-used {
+	text-decoration: line-through;
+}
+
+.stats-dashboard {
+	text-align: center;
+}
+

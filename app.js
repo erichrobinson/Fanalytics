@@ -5,20 +5,21 @@ angular.module('fantasy')
 
 		var userList = []
 
-		var User = function(name, email, password){
+		var User = function(firstName, lastName, email, password){
 
-			this.name = name
+			this.firstName = firstName
+			this.lastName = lastName
 			this.email = email
 			this.password = password
-			this.currentTeam = {qb: '', wr1: '', wr2: '', rb: '', felx: '', te: '', dst: '', k: '' }
-			this.playersUsed = {qb: [], wr1: [], wr2: [], rb: [], felx: [], te: [], dst: [], k: [] }
+			this.currentTeam = {qb: '', wr1: '', wr2: '', rb: '', flex: '', te: '', dst: '', k: '' }
+			this.playersUsed = {qb: [], wr1: [], wr2: [], rb: [], flex: [], te: [], dst: [], k: [] }
 			this.record = [{wins: 0, losses: 0, points: 0}]
 
 			userList.push(this)
 
 		}
 
-		new User("Erich Robinson", "robinson.erich@gmail.com", "1234pass")
+		new User("Erich", "Robinson", "robinson.erich@gmail.com", "1234pass")
 
 		return {
 			User: User,
@@ -42,7 +43,7 @@ angular.module('fantasy')
 
 		$scope.showQB = true
 
-		$scope.showRB = true
+		$scope.showRB = false
 
 		$scope.currentUser = userFactory.userList[0]
 
@@ -76,27 +77,58 @@ angular.module('fantasy')
 			{
 				name: "C.J. Anderson", 
 				team: "Denver Broncos", 
-				projected: 20, 
-				points: {week1: 4.90 , week2: 20.24, week3: 21.86}, 
+				projected: 7, 
+				points: {week1: 6.80 , week2: 3.40, week3: 3.20}, 
 				opponents:{week1: "Baltimore Ravens", week2: "Kansas City Chiefs", week3: "Detroit Lions", week4: "Minnesota Vikings"},	
 				news: "'We have to keep C.J. on the field. C.J. has been coming off the field the past three games because he's been nicked up,' Kubiak said. 'Things are going on, and we need to keep him on the field consistently.' Anderson has missed time in the first three games with ankle, toe and head injuries. He has managed to play through all three ailments, but he and the rest of the Broncos running attack has struggled. The positive to take away from these comments is it sounds like Anderson is still the lead back over Ronnie Hillman. Anderson will be a low-end RB2 against the Vikings this week."
 			},
-			{name: "Eddie Lacy", 
-			team: "Green Bay Packers", 
-			projected: 24, 
-			points: {week1: 23.06 , week2: 22.26, week3: 37.92}, 
-			opponents:{week1: "Chicago Bears", week2: "Seattle Seahwaks", week3: "Kansas City Chiefs", week4: "San Francisco 49ers"},
-			news: "Lacy, battling a low-ankle sprain earlier in the week, got the start and looked reasonably healthy, but still split the load with James Starks, who out-carried Lacy 17-10. However, Starks only managed 32 yards on the ground. Lacy wasn't afraid to cut on his balky ankle and looked smooth doing it. He and Starks may again split work in Week 4 against San Francisco because it's a short week. But we can confidently fire Lacy up as an RB1 against the lowly 49ers."
+			{
+				name: "Eddie Lacy", 
+				team: "Green Bay Packers", 
+				projected: 12, 
+				points: {week1: 16.90 , week2: 0.90, week3: 10.20}, 
+				opponents:{week1: "Chicago Bears", week2: "Seattle Seahwaks", week3: "Kansas City Chiefs", week4: "San Francisco 49ers"},
+				news: "Lacy, battling a low-ankle sprain earlier in the week, got the start and looked reasonably healthy, but still split the load with James Starks, who out-carried Lacy 17-10. However, Starks only managed 32 yards on the ground. Lacy wasn't afraid to cut on his balky ankle and looked smooth doing it. He and Starks may again split work in Week 4 against San Francisco because it's a short week. But we can confidently fire Lacy up as an RB1 against the lowly 49ers."
 			},
 			
-			{name: "Karlos Williams", 
-			team: "Buffalo Bills", 
-			projected: 18, 
-			points: {week1: 17.9 , week2: 25.98, week3: 24.28}, 
-			opponents:{week1: "Indianapolis Colts", week2: "New England Patriots", week3: "Miami Dolphins", week4: "New York Giants"},
-			news: "With LeSean McCoy (hamstring) relegated to the sideline for much of Sunday's game, Williams saw 12 carries against the Dolphins. He turned them into 110 yards and his third touchdown in as many games. Rex Ryan admitted after the game McCoy is not close to 100 percent, and there have been rumblings McCoy could be sat down for a week to get back to full health. With more work and the potential for a starting role in his future, Williams needs to be owned in all leagues."
-		},
+			{
+				name: "Karlos Williams", 
+				team: "Buffalo Bills", 
+				projected: 17, 
+				points: {week1: 11.50 , week2: 10.70, week3: 22.00}, 
+				opponents:{week1: "Indianapolis Colts", week2: "New England Patriots", week3: "Miami Dolphins", week4: "New York Giants"},
+				news: "With LeSean McCoy (hamstring) relegated to the sideline for much of Sunday's game, Williams saw 12 carries against the Dolphins. He turned them into 110 yards and his third touchdown in as many games. Rex Ryan admitted after the game McCoy is not close to 100 percent, and there have been rumblings McCoy could be sat down for a week to get back to full health. With more work and the potential for a starting role in his future, Williams needs to be owned in all leagues."
+			},
 		]
+
+		// $scope.allWR = [
+		// 	{
+		// 		name: "Demaryius Thomas", 
+		// 		team: "Denver Broncos", 
+		// 		projected: 7, 
+		// 		points: {week1: 6.80 , week2: 3.40, week3: 3.20}, 
+		// 		opponents:{week1: "Baltimore Ravens", week2: "Kansas City Chiefs", week3: "Detroit Lions", week4: "Minnesota Vikings"},	
+		// 		news: "'We have to keep C.J. on the field. C.J. has been coming off the field the past three games because he's been nicked up,' Kubiak said. 'Things are going on, and we need to keep him on the field consistently.' Anderson has missed time in the first three games with ankle, toe and head injuries. He has managed to play through all three ailments, but he and the rest of the Broncos running attack has struggled. The positive to take away from these comments is it sounds like Anderson is still the lead back over Ronnie Hillman. Anderson will be a low-end RB2 against the Vikings this week."
+		// 	},
+		// 	{
+		// 		name: "Randall Cobb", 
+		// 		team: "Green Bay Packers", 
+		// 		projected: 12, 
+		// 		points: {week1: 16.90 , week2: 0.90, week3: 10.20}, 
+		// 		opponents:{week1: "Chicago Bears", week2: "Seattle Seahwaks", week3: "Kansas City Chiefs", week4: "San Francisco 49ers"},
+		// 		news: "Lacy, battling a low-ankle sprain earlier in the week, got the start and looked reasonably healthy, but still split the load with James Starks, who out-carried Lacy 17-10. However, Starks only managed 32 yards on the ground. Lacy wasn't afraid to cut on his balky ankle and looked smooth doing it. He and Starks may again split work in Week 4 against San Francisco because it's a short week. But we can confidently fire Lacy up as an RB1 against the lowly 49ers."
+		// 	},
+			
+		// 	{
+		// 		name: "Sammie Watkins", 
+		// 		team: "Buffalo Bills", 
+		// 		projected: 17, 
+		// 		points: {week1: 11.50 , week2: 10.70, week3: 22.00}, 
+		// 		opponents:{week1: "Indianapolis Colts", week2: "New England Patriots", week3: "Miami Dolphins", week4: "New York Giants"},
+		// 		news: "With LeSean McCoy (hamstring) relegated to the sideline for much of Sunday's game, Williams saw 12 carries against the Dolphins. He turned them into 110 yards and his third touchdown in as many games. Rex Ryan admitted after the game McCoy is not close to 100 percent, and there have been rumblings McCoy could be sat down for a week to get back to full health. With more work and the potential for a starting role in his future, Williams needs to be owned in all leagues."
+		// 	},
+		// ]
+
 
 		$scope.userTest = function(){
 			new userFactory.User($scope.newName, $scope.newEmail, $scope.newPassword)
@@ -112,30 +144,30 @@ angular.module('fantasy')
 		}
 
 		$scope.addToRosterRB = function(player){
+			if($scope.currentUser.currentTeam.rb )
 			$scope.currentUser.currentTeam.rb = player
 			console.log($scope.currentUser)
 		}
 
-		$scope.showQB = function(){
+		$scope.toggleQB = function(){
 			if($scope.showQB === false){
 				$scope.showQB = true
-			}
-			else{
-				console.log("test")
 			}
 			$scope.showRB = false
 		}
 
-		$scope.showRB = function(){
+		$scope.toggleRB = function(){
 			if($scope.showRB === false){
 				$scope.showRB = true
-			}
-			else{
-				console.log("test")
 			}
 			$scope.showQB = false
 		}
 
+		$scope.removePlayer = function(key, player){
+			$scope.currentUser.currentTeam[key] = {}
+
+		}
+		console.log($scope.currentUser.currentTeam.rb)
 		console.log(userFactory.userList)
 		console.log($scope.currentUser)
 	}])
