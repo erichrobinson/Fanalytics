@@ -45,6 +45,8 @@ angular.module('fantasy')
 
 		$scope.showRB = false
 
+		$scope.showWR = false
+
 		$scope.currentUser = userFactory.userList[0]
 
 		$scope.allQB = [
@@ -101,33 +103,33 @@ angular.module('fantasy')
 			},
 		]
 
-		// $scope.allWR = [
-		// 	{
-		// 		name: "Demaryius Thomas", 
-		// 		team: "Denver Broncos", 
-		// 		projected: 7, 
-		// 		points: {week1: 6.80 , week2: 3.40, week3: 3.20}, 
-		// 		opponents:{week1: "Baltimore Ravens", week2: "Kansas City Chiefs", week3: "Detroit Lions", week4: "Minnesota Vikings"},	
-		// 		news: "'We have to keep C.J. on the field. C.J. has been coming off the field the past three games because he's been nicked up,' Kubiak said. 'Things are going on, and we need to keep him on the field consistently.' Anderson has missed time in the first three games with ankle, toe and head injuries. He has managed to play through all three ailments, but he and the rest of the Broncos running attack has struggled. The positive to take away from these comments is it sounds like Anderson is still the lead back over Ronnie Hillman. Anderson will be a low-end RB2 against the Vikings this week."
-		// 	},
-		// 	{
-		// 		name: "Randall Cobb", 
-		// 		team: "Green Bay Packers", 
-		// 		projected: 12, 
-		// 		points: {week1: 16.90 , week2: 0.90, week3: 10.20}, 
-		// 		opponents:{week1: "Chicago Bears", week2: "Seattle Seahwaks", week3: "Kansas City Chiefs", week4: "San Francisco 49ers"},
-		// 		news: "Lacy, battling a low-ankle sprain earlier in the week, got the start and looked reasonably healthy, but still split the load with James Starks, who out-carried Lacy 17-10. However, Starks only managed 32 yards on the ground. Lacy wasn't afraid to cut on his balky ankle and looked smooth doing it. He and Starks may again split work in Week 4 against San Francisco because it's a short week. But we can confidently fire Lacy up as an RB1 against the lowly 49ers."
-		// 	},
+		$scope.allWR = [
+			{
+				name: "Demaryius Thomas", 
+				team: "Denver Broncos", 
+				projected: 17, 
+				points: {week1: 9.50 , week2: 18.60, week3: 19.70}, 
+				opponents:{week1: "Baltimore Ravens", week2: "Kansas City Chiefs", week3: "Detroit Lions", week4: "Minnesota Vikings"},	
+				news: "Thomas beat Lions CB Darius Slay for a 45-yard touchdown at the end of the first half. It was his best game to date, though he was limited to three second-half catches and also lost a fumble. Thomas will remain a high-end WR1 against a Vikings defense that could be without top CB Xavier Rhodes in Week 4"
+			},
+			{
+				name: "Randall Cobb", 
+				team: "Green Bay Packers", 
+				projected: 17, 
+				points: {week1: 12.30 , week2: 18.60, week3: 31.80}, 
+				opponents:{week1: "Chicago Bears", week2: "Seattle Seahwaks", week3: "Kansas City Chiefs", week4: "San Francisco 49ers"},
+				news: "He had a fourth touchdown called back on a ticky-tack, new-emphasis offensive pass interference call when Ty Montgomery was whistled for blocking on a WR screen play too early. Still, Cobb dominated out of the slot, especially after the Chiefs lost slot CB Phillip Gaines early in the first quarter to a knee sprain. The Chiefs were then forced to use stiff safety Tyvon Branch to cover the shifty Cobb. And Cobb whipped him on his very first play for a short touchdown. All three of Cobb's touchdowns came of short passes where he just beat the defensive backs to the end zone. Cobb will be a WR1 next week in San Francisco"
+			},
 			
-		// 	{
-		// 		name: "Sammie Watkins", 
-		// 		team: "Buffalo Bills", 
-		// 		projected: 17, 
-		// 		points: {week1: 11.50 , week2: 10.70, week3: 22.00}, 
-		// 		opponents:{week1: "Indianapolis Colts", week2: "New England Patriots", week3: "Miami Dolphins", week4: "New York Giants"},
-		// 		news: "With LeSean McCoy (hamstring) relegated to the sideline for much of Sunday's game, Williams saw 12 carries against the Dolphins. He turned them into 110 yards and his third touchdown in as many games. Rex Ryan admitted after the game McCoy is not close to 100 percent, and there have been rumblings McCoy could be sat down for a week to get back to full health. With more work and the potential for a starting role in his future, Williams needs to be owned in all leagues."
-		// 	},
-		// ]
+			{
+				name: "Sammy Watkins", 
+				team: "Buffalo Bills", 
+				projected: 15, 
+				points: {week1: 0 , week2: 15.00, week3: 4.40}, 
+				opponents:{week1: "Indianapolis Colts", week2: "New England Patriots", week3: "Miami Dolphins", week4: "New York Giants"},
+				news: "NFL Network's Ian Rapoport has reported Watkins' strain is 'mild,' but he spent the second half of Sunday\'s win in street clothes. Always banged up, we\'d put Watkins\' odds of suiting up for Week 4 at no better than 50-50"
+			},
+		]
 
 
 		$scope.userTest = function(){
@@ -138,15 +140,29 @@ angular.module('fantasy')
 			$scope.newPassword = ''
 		}
 
-		$scope.addToRoster = function(player){
-			$scope.currentUser.currentTeam.qb = player
-			console.log($scope.currentUser)
-		}
+		$scope.addToRoster = function(position, player){
+				if(position === 'qb' && $scope.currentUser.currentTeam[position] !== ''){
+					console.log("You must remove a player")
+				} else if(position == "wr1" && $scope.currentUser.currentTeam.wr2 !== ''){
+					$scope.currentUser.currentTeam.flex = player
+					$scope.currentUser.playersUsed[position].push(player)
+				} else if (position === "wr1" && $scope.currentUser.currentTeam[position] !==''){
+					$scope.currentUser.currentTeam.wr2 = player
+					$scope.currentUser.playersUsed[position].push(player)
+				} else if ((position === 'rb' || position === 'wr') && $scope.currentUser.currentTeam[position] !== ''){
+					$scope.currentUser.currentTeam.flex = player
+					$scope.currentUser.playersUsed[position].push(player)
+				}else {
+					$scope.currentUser.currentTeam[position] = player
+					$scope.currentUser.playersUsed[position].push(player)
+				}
+				// else if((position === 'rb' || position === 'wr') && ($scope.currentUser.currentTeam[position] !== '')){
+				// 	$scope.currentUser.currentTeam.flex = position
+				// }
 
-		$scope.addToRosterRB = function(player){
-			if($scope.currentUser.currentTeam.rb )
-			$scope.currentUser.currentTeam.rb = player
-			console.log($scope.currentUser)
+				// console.log($scope.currentUser.currentTeam[position])
+				console.log($scope.currentUser.playersUsed)
+			
 		}
 
 		$scope.toggleQB = function(){
@@ -154,6 +170,7 @@ angular.module('fantasy')
 				$scope.showQB = true
 			}
 			$scope.showRB = false
+			$scope.showWR = false
 		}
 
 		$scope.toggleRB = function(){
@@ -161,10 +178,19 @@ angular.module('fantasy')
 				$scope.showRB = true
 			}
 			$scope.showQB = false
+			$scope.showWR = false
+		}
+
+		$scope.toggleWR = function(){
+			if($scope.showWR === false){
+				$scope.showWR = true
+			}
+			$scope.showQB = false
+			$scope.showRB = false
 		}
 
 		$scope.removePlayer = function(key, player){
-			$scope.currentUser.currentTeam[key] = {}
+			$scope.currentUser.currentTeam[key] = ''
 
 		}
 		console.log($scope.currentUser.currentTeam.rb)

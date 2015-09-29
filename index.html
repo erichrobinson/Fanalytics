@@ -53,6 +53,7 @@
 			<div class="col-sm-12">
 				<button class="btn btn-primary" ng-click="toggleQB()">QB</button>
 				<button class="btn btn-primary" ng-click="toggleRB()">RB</button>
+				<button class="btn btn-primary" ng-click="toggleWR()">WR</button>
 			</div>
 			<table>
 				<tbody>
@@ -72,7 +73,7 @@
 						<td class="player-stats-column">{{qb.points.week1}}</td>
 						<td>
 							<button class="btn btn-default" ng-click="showNews = !showNews">More</button>
-							<button class="btn btn-success" ng-click="addToRoster(qb)">+</button>
+							<button class="btn btn-success" ng-click="addToRoster('qb', qb)">+</button>
 						</td>
 					</tr>
 				</tbody>
@@ -93,7 +94,7 @@
 						<td class="player-stats-column">{{rb.points.week1}}</td>
 						<td>
 							<button class="btn btn-default" ng-click="showNews = !showNews">More</button>
-							<button class="btn btn-success" ng-click="addToRosterRB(rb)">+</button>
+							<button class="btn btn-success" ng-click="addToRoster('rb',rb)">+</button>
 						</td>
 					</tr>
 				</tbody>
@@ -106,12 +107,36 @@
 				</div>
 				
 			</div>
+
+			<div class="col-sm-8" ng-repeat="wr in allWR" ng-show="showWR">
+				<table class="table table-hover">
+					<tbody>
+					<tr>
+						<td class="player-name-column">{{wr.name}}</td>
+						<td class="player-team-column">{{wr.team}}</td>
+						<td class="player-stats-column">{{wr.projected}}</td>
+						<td class="player-stats-column">{{wr.points.week1}}</td>
+						<td>
+							<button class="btn btn-default" ng-click="showNews = !showNews">More</button>
+							<button class="btn btn-success" ng-click="addToRoster('wr1',wr)">+</button>
+						</td>
+					</tr>
+				</tbody>
+				</table>
+				
+				
+				<div ng-show="showNews">
+
+				{{wr.news}}
+				</div>
+				
+			</div>
 			<div class="row">
 				<div class="col-sm-4 align-top">
 					<span >Current Team</span>
 				<div ng-repeat="(key, player) in currentUser.currentTeam">
 				   {{key}}{{player.name}}{{player.projected}}
-				   <span><button ng-click="removePlayer(key,player)">-</button></span>
+				   <span><button ng-click="removePlayer(key)">-</button></span>
 				</div>
 				</div>
 	</div>
