@@ -1,4 +1,4 @@
-angular.module('fantasy', ['ui.bootstrap'])
+angular.module('fantasy', ['ui.bootstrap', 'chart.js'])
 
 angular.module('fantasy')
 	.factory('userFactory', function(){
@@ -25,10 +25,20 @@ angular.module('fantasy')
 			User: User,
 			userList: userList
 		}
-
-		
-
 	})
+
+angular.module("fantasy").controller("LineCtrl", ['$scope','userFactory', function ($scope, userFactory) {
+
+  $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+  $scope.series = ['Series A', 'Series B'];
+  $scope.data = [
+    [65, 59, 80, 81, 56, 55, 40],
+    [28, 48, 40, 19, 86, 27, 90]
+  ];
+  $scope.onClick = function (points, evt) {
+    console.log(points, evt);
+  };
+}]);
 
 angular.module('fantasy')
 	.controller('MainController', ['$scope', 'userFactory', function($scope, userFactory){
