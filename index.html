@@ -8,7 +8,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap.min.js"></script>
 </head>
 <body ng-controller="MainController">
-	<nav class="navbar navbar-inverse">
+	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -28,29 +28,37 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-2">
-			<img ng-src="http://placehold.it/175x225">
-			</div>
-			<div class="col-sm-10">
-			<div><h1>{{currentUser.firstName}}</h1></div>
-			<div><h1>{{currentUser.lastName}}</h1></div>
-			</div>
-		</div>
-		<div class="row stats-dashboard">
-			<div class="col-sm-4 border-right">
-				Rank
-			</div>
-			<div class="col-sm-4 border-right">
-				Stats
+	<div class="container-full">
+		<div class="row user-page">
+			<div class="col-sm-2 col-sm-offset-1 align-center">
+				<img class="user-avatar" ng-src="http://placehold.it/175x225">
 			</div>
 			<div class="col-sm-4">
-				Notes
+				<div><h1 class="user-name first-name text-lrg text-white">{{currentUser.firstName}}</h1></div>
+				<div><h1 class="user-name text-lrg-thin text-white">{{currentUser.lastName}}</h1></div>
+			</div>
+			<div class="col-sm-4 col-sm-offset-1 current-team align-center" >
+				<div ng-repeat="(key, player) in currentUser.currentTeam" class="current-player text-white">{{key | uppercase}}{{player.name}}{{player.projected}}</div>
 			</div>
 		</div>
+		<div class="row stats-dashboard user-page">
+			<div class="col-sm-4">
+				<h2 class="user-stats-header text-md-thin text-white">Rank</h2>
+				<h2 class="user-stats text-lrg text-gold">35th of 68</h2>
+			</div>
+			<div class="col-sm-4">
+				<h2 class="user-stats-header text-md-thin text-white">Record</h2>
+				<h2 class="user-stats text-lrg text-gold">2-1</h2>
+			</div>
+			<div class="col-sm-4">
+				<h2 class="user-stats-header text-md-thin text-white">Notes</h2>
+				<h2 class="user-stats text-md-thin text-gold">No New Notes</h2>
+			</div>
+		</div>
+	</div>
+	<div class="container">
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-12 position-toggles">
 				<button class="btn btn-primary" ng-click="toggleQB()">QB</button>
 				<button class="btn btn-primary" ng-click="toggleRB()">RB</button>
 				<button class="btn btn-primary" ng-click="toggleWR()">WR</button>
@@ -63,7 +71,7 @@
 					<th class="player-stats-column">Season</th>
 				</tbody>
 			</table>
-			<div class="col-sm-8" ng-repeat="qb in allQB" ng-show="showQB">
+			<div class="col-sm-12" ng-repeat="qb in allQB" ng-show="showQB">
 				<table class="table table-hover">
 				<tbody>
 					<tr>
@@ -72,8 +80,8 @@
 						<td class="player-stats-column">{{qb.projected}}</td>
 						<td class="player-stats-column">{{qb.points.week1}}</td>
 						<td>
-							<button class="btn btn-default" ng-click="showNews = !showNews">More</button>
-							<button class="btn btn-success" ng-click="addToRoster('qb', qb)">+</button>
+							<button class="btn btn-success player-buttons" ng-click="addToRoster('qb', qb)">+</button>
+							<button class="btn btn-default  player-buttons" ng-click="showNews = !showNews">More</button>							
 						</td>
 					</tr>
 				</tbody>
@@ -84,7 +92,7 @@
 				</div>
 			</div>
 			
-			<div class="col-sm-8" ng-repeat="rb in allRB" ng-show="showRB">
+			<div class="col-sm-12" ng-repeat="rb in allRB" ng-show="showRB">
 				<table class="table table-hover">
 					<tbody>
 					<tr>
@@ -93,8 +101,8 @@
 						<td class="player-stats-column">{{rb.projected}}</td>
 						<td class="player-stats-column">{{rb.points.week1}}</td>
 						<td>
-							<button class="btn btn-default" ng-click="showNews = !showNews">More</button>
-							<button class="btn btn-success" ng-click="addToRoster('rb',rb)">+</button>
+							<button class="btn btn-success player-buttons" ng-click="addToRoster('rb',rb)">+</button>
+							<button class="btn btn-default player-buttons" ng-click="showNews = !showNews">More</button>							
 						</td>
 					</tr>
 				</tbody>
@@ -108,7 +116,7 @@
 				
 			</div>
 
-			<div class="col-sm-8" ng-repeat="wr in allWR" ng-show="showWR" >
+			<div class="col-sm-12" ng-repeat="wr in allWR" ng-show="showWR" >
 				<table class="table table-hover">
 					<tbody>
 					<tr>
@@ -117,8 +125,8 @@
 						<td class="player-stats-column">{{wr.projected}}</td>
 						<td class="player-stats-column">{{wr.points.week1}}</td>
 						<td>
-							<button class="btn btn-default" ng-click="showNews = !showNews">More</button>
-							<button class="btn btn-success" ng-click="addToRoster('wr1',wr)">+</button>
+							<button class="btn btn-success player-buttons" ng-click="addToRoster('wr1',wr)">+</button>
+							<button class="btn btn-default player-buttons" ng-click="showNews = !showNews">More</button>							
 						</td>
 					</tr>
 				</tbody>
@@ -131,15 +139,9 @@
 				</div>
 				
 			</div>
-			<div class="row">
-				<div class="col-sm-4 align-top">
-					<span >Current Team</span>
-				<div ng-repeat="(key, player) in currentUser.currentTeam">
-				   {{key}}{{player.name}}{{player.projected}}
-				   <span><button ng-click="removePlayer(key)">-</button></span>
-				</div>
-				</div>
+			
 	</div>
+		
 			</div>
 		</div>
 	</div>

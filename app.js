@@ -11,7 +11,7 @@ angular.module('fantasy')
 			this.lastName = lastName
 			this.email = email
 			this.password = password
-			this.currentTeam = {qb: '', wr1: '', wr2: '', rb: '', flex: '', te: '', dst: '', k: '' }
+			this.currentTeam = {qb: '', rb: '', wr1: '', wr2: '', flex: '', te: '', dst: '', k: '' }
 			this.playersUsed = {qb: [], wr1: ["Sammy Watkins"], rb: [], te: [], dst: [], k: [] }
 			this.record = [{wins: 0, losses: 0, points: 0}]
 
@@ -158,7 +158,7 @@ angular.module('fantasy')
 					console.log("You must remove a player")
 				} else if(position == "wr1" && $scope.currentUser.currentTeam.wr2 !== ''){
 					$scope.currentUser.currentTeam.flex = player
-					$scope.currentUser.playersUsed[position].push(player)
+					$scope.currentUser.playersUsed[position].push(player.name)
 					console.log(player)
 				} else if (position === "wr1" && $scope.currentUser.currentTeam[position] !==''){
 					$scope.currentUser.currentTeam.wr2 = player
@@ -168,8 +168,9 @@ angular.module('fantasy')
 					$scope.currentUser.playersUsed[position].push(player)
 				}else {
 					$scope.currentUser.currentTeam[position] = player
-					$scope.currentUser.playersUsed[position].push(player)
-					console.log(player)
+					$scope.currentUser.playersUsed[position].push(player.name)
+					console.log($scope.currentUser.playersUsed)
+
 				}
 				// else if((position === 'rb' || position === 'wr') && ($scope.currentUser.currentTeam[position] !== '')){
 				// 	$scope.currentUser.currentTeam.flex = position

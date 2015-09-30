@@ -1,3 +1,85 @@
+.container-full {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.user-page {
+	background-color: #222;
+}
+
+.user-avatar {
+	margin-top: 50px;
+}
+
+.current-team {
+	margin-top: 50px;
+	background-color: #EB862E;
+	height: 225px;
+}
+
+.current-player {
+	color: #222;
+	margin-top: 7px;
+}
+
+/* NAVBAR */
+
+.navbar-default {
+	border-radius: 0;
+	border: none;
+	border-bottom: 3px solid #EB862E;
+	margin-bottom: 0;
+	background-color: white;
+}
+
+.navbar-brand {
+	margin-left: 100px;
+}
+
+/* FONTS */
+
+.text-lrg{
+	font-size: 40px;
+	font-weight: bold;
+	margin-bottom: 0;
+}
+
+.text-lrg-thin{
+	font-size: 40px;
+	font-weight: lighter;
+	margin-top: 5px;
+}
+
+.text-md-thin{
+	font-size: 32px;
+	font-weight: lighter;
+}
+
+.text-white{
+	color: white;
+}
+
+.text-gold{
+	color: #EB862E;
+}
+
+.first-name{
+	margin-top: 50px;
+}
+
+.user-name{
+}
+
+.user-stats-header{
+	margin-top: 50px;
+}
+
+.user-stats{
+	margin-bottom: 25px;
+}
+
+
+
 /* BORDERS */
 
 .border-right {
@@ -8,6 +90,10 @@
 
 .align-top {
 	text-align: vertical;
+}
+
+.align-center {
+	text-align: center;
 }
 
 /* TABLES */
@@ -35,5 +121,13 @@
 
 .stats-dashboard {
 	text-align: center;
+}
+
+.position-toggles {
+	margin-top: 25px;
+}
+
+.player-buttons {
+	float: right;
 }
 
