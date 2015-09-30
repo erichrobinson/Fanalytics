@@ -40,6 +40,11 @@ angular.module("fantasy").controller("LineCtrl", ['$scope','userFactory', functi
   };
 }]);
 
+angular.module("fantasy").controller("DoughnutCtrl",['$scope', 'userFactory', function ($scope, userFactory) {
+  $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+  $scope.data = [300, 500, 100];
+}]);
+
 angular.module('fantasy')
 	.controller('MainController', ['$scope', 'userFactory', function($scope, userFactory){
 		

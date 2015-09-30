@@ -129,7 +129,11 @@
 								<h4 class="text-black text-lrg">15%</h4>
 							</div>							
 						</div>
-						<div class="col-sm-4 align-center">
+						<div class="col-sm-4 align-center align-top" ng-controller="DoughnutCtrl">
+							<h4 class="text-gold text-md-thin align-top">Performance vs. Projection</h4>
+							<canvas id="doughnut" class="chart chart-doughnut"
+  							chart-data="data" chart-labels="labels">
+							</canvas> 
 						</div>
 						<div class="row">
 							<div class="col-sm-12" ng-controller="LineCtrl">

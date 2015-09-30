@@ -93,7 +93,7 @@
 /* ALIGNMENT */
 
 .align-top {
-	text-align: vertical;
+	vertical-align: top;
 }
 
 .align-center {
@@ -154,10 +154,6 @@
 
 .player-dashboard {
 	margin-top: 25px;
-}
-
-.player-schedule {
-	margin-bottom: 50px;
 }
 
 .already-used {
