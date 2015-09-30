@@ -5,7 +5,10 @@
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular-animate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap.min.js"></script>
+
+
 </head>
 <body ng-controller="MainController">
 	<nav class="navbar navbar-default">
@@ -17,14 +20,20 @@
 				    <span class="icon-bar"></span>
 				    <span class="icon-bar"></span>				   
       			</button>
-      			 <a class="navbar-brand" href="#">Fantasy Football</a>
-      			 <form class="form-inline navbar-right">
+      			<div class="container">
+      				<div class="row align-center">
+      					<a class="navbar-brand" href="#">Fantasy Football</a>
+      				
+      				<form class="form-inline navbar-right col-sm-9">
       			 	<div class="form-group">
       			 		<input placeholder="username">
       			 		<input placeholder="password">
       			 		<button type="submit" class="btn btn-default">Submit</button>
+      			 	</div>
       			 	</div>      			 	
-      			 </form>      			 
+      			 </form> 
+      			</div>
+      			      			 
 			</div>
 		</div>
 	</nav>
@@ -38,7 +47,7 @@
 				<div><h1 class="user-name text-lrg-thin text-white">{{currentUser.lastName}}</h1></div>
 			</div>
 			<div class="col-sm-4 col-sm-offset-1 current-team align-center" >
-				<div ng-repeat="(key, player) in currentUser.currentTeam" class="current-player text-white">{{key | uppercase}}{{player.name}}{{player.projected}}</div>
+				<div ng-repeat="(key, player) in currentUser.currentTeam" class="current-player text-white">{{key | uppercase}}<span class="text-blk">{{player.name}}</span></div>
 			</div>
 		</div>
 		<div class="row stats-dashboard user-page">
@@ -65,14 +74,14 @@
 			</div>
 			<table>
 				<tbody>
-					<th class="player-name-column">Name</th>
-					<th class="player-team-column">Team</th>
-					<th class="player-stats-column">Projected</th>
-					<th class="player-stats-column">Season</th>
+					<th class="player-name-header">Name</th>
+					<th class="player-team-header">Team</th>
+					<th class="player-stats-header">Projected</th>
+					<th class="player-stats-header">Season</th>
 				</tbody>
 			</table>
 			<div class="col-sm-12" ng-repeat="qb in allQB" ng-show="showQB">
-				<table class="table table-hover">
+				<table class="table">
 				<tbody>
 					<tr>
 						<td class="player-name-column">{{qb.name}}</td>
@@ -87,13 +96,45 @@
 				</tbody>
 				</table>
 				<div ng-show="showNews">
-				<img ng-src="http://placehold.it/95x108">
-				{{qb.news}}
+					<div class="row">
+						<img class="col-sm-2" ng-src="http://placehold.it/95x108">
+						<h4>News</h4>
+						<div class="player-news col-sm-10">{{qb.news}}</div>
+					</div>
+					<div class="row player-dashboard">
+						<div class="col-sm-4 align-center player-schedule">
+							<h4 class="text-gold text-md-thin">Schedule</h4>
+							<div ng-repeat="opponent in qb.opponents">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td>{{opponent}}</td>
+											<td>-15%</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							
+						</div>
+						<div class="col-sm-4 align-center">
+							<div>
+								<h4 class="text-gold text-md-thin">This Week</h4>
+								<h4 class="text-black text-lrg">33%</h4>
+							</div>
+							<div>
+								<h4 class="text-gold text-md-thin already-used">Already Used</h4>
+								<h4 class="text-black text-lrg">15%</h4>
+							</div>							
+						</div>
+						<div class="col-sm-4 align-center">
+							
+						</div>
+					</div>					
 				</div>
 			</div>
 			
 			<div class="col-sm-12" ng-repeat="rb in allRB" ng-show="showRB">
-				<table class="table table-hover">
+				<table class="table">
 					<tbody>
 					<tr>
 						<td class="player-name-column">{{rb.name}}</td>
@@ -108,16 +149,16 @@
 				</tbody>
 				</table>
 				
-				
-				<div ng-show="showNews">
-				<img ng-src="http://placehold.it/95x108">
-				{{rb.news}}
+				<div class="row" ng-show="showNews">
+					<img class="col-sm-2" ng-src="http://placehold.it/95x108">
+					<h4>News</h4>
+					<div class="player-news col-sm-10">{{rb.news}}</div>
 				</div>
 				
 			</div>
 
 			<div class="col-sm-12" ng-repeat="wr in allWR" ng-show="showWR" >
-				<table class="table table-hover">
+				<table class="table"
 					<tbody>
 					<tr>
 						<td  ng-class="{ strike : checkForMatch(wr) }" class="player-name-column">{{wr.name}}</td>
@@ -131,21 +172,25 @@
 					</tr>
 				</tbody>
 				</table>
-				
-				
-				<div ng-show="showNews">
-				<img ng-src="http://placehold.it/95x108">
-				{{wr.news}}
+				<div class="row" ng-show="showNews">
+					<img class="col-sm-2" ng-src="http://placehold.it/95x108">
+					<h4>News</h4>
+					<div class="player-news col-sm-10">{{wr.news}}</div>
 				</div>
-				
-			</div>
-			
-	</div>
-		
 			</div>
 		</div>
 	</div>
-	
+	<div class="align-center col-sm-12" >
+		<div ng-show="confirmChange" class="roster-change-window">
+			<h1 text>Add:</h1>
+			<span>{{playerToAdd}}</span>
+			<h1>Drop:</h1>
+			<span ng-repeat="player in currentUser.currentTeam">
+				{{player.name}}
+			</span>
+			<button>Confirm</button>
+		</div>
+	</div>
 	
 	<script src="app.js"></script>
 </body>

@@ -59,6 +59,10 @@
 	color: white;
 }
 
+.text-blk {
+	color: #222;
+}
+
 .text-gold{
 	color: #EB862E;
 }
@@ -113,6 +117,10 @@
 	text-align: center;
 }
 
+.player-news {
+	display: inline-block;
+}
+
 /* STRIKEOUT */
 
 .strike {
@@ -124,10 +132,35 @@
 }
 
 .position-toggles {
-	margin-top: 25px;
+	margin: 25px 0;
 }
 
 .player-buttons {
 	float: right;
+}
+
+.roster-change-window {
+	height: 500px;
+	margin: 0 auto;
+	width: 500px;
+	background-color: #999;
+	position: relative;
+	bottom: 500px;
+}
+
+.btn {
+	border-radius: 0;
+}
+
+.player-dashboard {
+	margin-top: 25px;
+}
+
+.player-schedule {
+	margin-bottom: 200px;
+}
+
+.already-used {
+	margin-top: 50px;
 }
 

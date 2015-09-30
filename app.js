@@ -1,4 +1,4 @@
-angular.module('fantasy', [])
+angular.module('fantasy', ['ui.bootstrap'])
 
 angular.module('fantasy')
 	.factory('userFactory', function(){
@@ -30,14 +30,14 @@ angular.module('fantasy')
 
 	})
 
-
-
 angular.module('fantasy')
 	.controller('MainController', ['$scope', 'userFactory', function($scope, userFactory){
 		
 		$scope.newName = ''
 		$scope.newEmail = ''
 		$scope.newPassword = ''
+
+		$scope.confirmChange = false
 
 		$scope.showNews = false
 
@@ -48,6 +48,10 @@ angular.module('fantasy')
 		$scope.showWR = false
 
 		$scope.currentUser = userFactory.userList[0]
+
+		$scope.playerToAdd = ''
+
+		$scope.playersToDrop = []
 
 		$scope.allQB = [
 			{
@@ -144,6 +148,8 @@ angular.module('fantasy')
 
 		$scope.addToRoster = function(position, player){
 
+			$scope.playerToAdd = player.name
+
 			var checkForPreviousUse = function(){
 				for(each in $scope.currentUser.playersUsed[position]){
 					if($scope.currentUser.playersUsed[position][each] === player){
@@ -156,6 +162,7 @@ angular.module('fantasy')
 				}
 				else if(position === 'qb' && $scope.currentUser.currentTeam[position] !== ''){
 					console.log("You must remove a player")
+					$scope.confirmChange = true
 				} else if(position == "wr1" && $scope.currentUser.currentTeam.wr2 !== ''){
 					$scope.currentUser.currentTeam.flex = player
 					$scope.currentUser.playersUsed[position].push(player.name)
@@ -222,3 +229,4 @@ angular.module('fantasy')
 
 		}
 	}])
+
