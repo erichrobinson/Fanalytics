@@ -14,31 +14,9 @@
 
 </head>
 <body ng-controller="MainController" ng-cloak>
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				    <span class="sr-only">Toggle navigation</span>
-				    <span class="icon-bar"></span>
-				    <span class="icon-bar"></span>
-				    <span class="icon-bar"></span>				   
-      			</button>
-      			<div class="container">
-      				<div class="row ">
-      					<a id="navbarTest" class="navbar-brand" href="#">Fanalytics</a>
-      				
-      				<form class="form-inline navbar-right col-sm-9" id="formTest">
-	      			 	<div class="form-group" >
-	      			 		<input placeholder="username">
-	      			 		<input placeholder="password">
-	      			 		<button type="submit" class="btn btn-default">Submit</button>
-	      			 	</div>
-	      			</form> 
-      			</div>
-      			      			 
-			</div>
-		</div>
-	</nav>
+	<div class="header">
+		<h1 class="text-blk app-name">Fan</h1><h1 class="text-gold app-name">alytics</h1>
+	</div>
 	<div class="container-full">
 		<div class="row user-page">
 			<div class="col-sm-2 col-sm-offset-1 align-center">
@@ -73,15 +51,24 @@
 				<button class="btn btn-primary" ng-click="toggleQB()">QB</button>
 				<button class="btn btn-primary" ng-click="toggleRB()">RB</button>
 				<button class="btn btn-primary" ng-click="toggleWR()">WR</button>
+				<button class="btn btn-warning text-blk" ng-click="qbFactory.comparePlayers()">COMPARE</button>
 			</div>
-			<table>
+			<div class="col-sm-12">
+				<table class="table">
 				<tbody>
-					<th class="player-name-header">Name</th>
-					<th class="player-team-header">Team</th>
-					<th class="player-stats-header">Projected</th>
-					<th class="player-stats-header">Season</th>
+				<tr>
+					<th class="player-name-column">Name</th>
+					<th class="player-team-column">Team</th>
+					<th class="player-stats-column">Projected</th>
+					<th class="player-stats-column">Season</th>
+					<td>
+						<div class="spacer"></div>							
+					</td>
+				</tr>
 				</tbody>
 			</table>
+			</div>
+			
 			<div class="col-sm-12" ng-repeat="qb in allQB" ng-show="showQB">
 				<table class="table">
 				<tbody>
@@ -92,7 +79,8 @@
 						<td class="player-stats-column">{{qb.totalPoints}}</td>
 						<td>
 							<button class="btn btn-success player-buttons" ng-click="addToRoster('qb', qb)">+</button>
-							<button class="btn btn-default  player-buttons" ng-click="showNews = !showNews">More</button>							
+							<button class="btn btn-default  player-buttons" ng-click="showNews = !showNews">More</button>	
+							<button class="btn btn-warning player-buttons text-blk" ng-click="addToCompare(qb)">C</button>					
 						</td>
 					</tr>
 				</tbody>
@@ -281,7 +269,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="align-center col-sm-12" >
+	<!-- <div class="align-center col-sm-12" >
 		<div ng-show="confirmChange" class="roster-change-window">
 			<h1 text>Add:</h1>
 			<span>{{playerToAdd}}</span>
@@ -291,8 +279,13 @@
 			</span>
 			<button>Confirm</button>
 		</div>
+	</div> -->
+	<div ng-show="showCompare" class="roster-change-window" ng-controller="LineCtrl">
+		<canvas id="line" class="chart chart-line" chart-data="wr.chart"
+  			chart-labels="labels" chart-legend="true" chart-series="series"
+  			chart-click="onClick" >
+		</canvas> 
 	</div>
-	
 	<script src="app.js"></script>
 </body>
 </html>

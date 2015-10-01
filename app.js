@@ -32,6 +32,8 @@ angular.module('fantasy')
 
 		var qbList = []
 
+		var compareList = []
+
 		var QB = function(name, team, projected, points, opponents, news, image){
 
 			this.name = name,
@@ -61,13 +63,14 @@ angular.module('fantasy')
 		new QB("Peyton Manning", "Denver Broncos", 20, [4.9, 20.24, 21.86], {week1: "Baltimore Ravens", week2: "Kansas City Chiefs", week3: "Detroit Lions", week4: "Minnesota Vikings"}, "Manning showed more command of the offense with the Broncos running most of their plays out of shotgun. His first touchdown was a 45-yard catch-and-run by Demaryius Thomas, and his second came on a fourth-quarter fade to Owen Daniels. It's the second straight multi-TD game for Manning after his disaster Week 1, but Gary Kubiak's scheme and decline concerns remain going forward. Through three weeks, Manning has 755 yards and a 5:3 TD/INT ratio. Manning will be a mid-range QB1 against the Vikings in Week 4.")
 		new QB("Aaron Rodgers", "Green Bay Packers", 24, [23.06, 22.26, 37.92], {week1: "Chicago Bears", week2: "Seattle Seahwaks", week3: "Kansas City Chiefs", week4: "San Francisco 49ers"}, "This game wasn't nearly as close as the final score would suggest. Rodgers and the Packers jumped out to a comfortable 31-7 lead before Alex Smith and the Chiefs poked away during a garbage time-filled fourth quarter. Rodgers was incredible, as always, at Lambeau Field, finding the weaknesses in the Chiefs' defense, particularly in the slot, and exploiting it over and over again. He's now gone 16 consecutive regular-season starts without throwing an interception at home. Three of Rodgers' five scores went to Randall Cobb, and all came on essentially the same exact play. His other two went to James Jones and Ty Montgomery. The Packers travel to dumpster-fire San Francisco in Week 4.")
 		new QB("Tyrod Taylor", "Buffalo Bills", 18, [17.9, 25.98, 24.28], {week1: 17.9 , week2: 25.98, week3: 24.28}, "Taylor added three rushes for 12 yards. The impressive first-year starter got to trade in his helmet for a baseball hat with eight minutes left in the game, as he and the Bills simply ran the Dolphins off their home field. Taylor continued to drop dimes, showing impressive ball placement, and a great sense of anticipation. His 38-yard touchdown to Chris Hogan in the fourth quarter — seriously — was a timing throw befitting of Peyton Manning or Tom Brady. There was a scary moment in the first half where Taylor got his left leg bent backwards on an awkward slide, but he ended up no worse for the wear. The Bills are still going to ask Tayor to caretake more than playmake, but he's shown he's capable of both. He'll be in the QB1 conversation for next week's matchup with the Giants' struggling defense")
-		new QB("Eli Manning", "New York Giants", 20, [4.9, 20.24, 21.86], {week1: "Baltimore Ravens", week2: "Kansas City Chiefs", week3: "Detroit Lions", week4: "Minnesota Vikings"}, "Manning showed more command of the offense with the Broncos running most of their plays out of shotgun. His first touchdown was a 45-yard catch-and-run by Demaryius Thomas, and his second came on a fourth-quarter fade to Owen Daniels. It's the second straight multi-TD game for Manning after his disaster Week 1, but Gary Kubiak's scheme and decline concerns remain going forward. Through three weeks, Manning has 755 yards and a 5:3 TD/INT ratio. Manning will be a mid-range QB1 against the Vikings in Week 4.")
-		new QB("Matt Ryan", "Atlanta Falcons", 24, [23.06, 22.26, 37.92], {week1: "Chicago Bears", week2: "Seattle Seahwaks", week3: "Kansas City Chiefs", week4: "San Francisco 49ers"}, "This game wasn't nearly as close as the final score would suggest. Rodgers and the Packers jumped out to a comfortable 31-7 lead before Alex Smith and the Chiefs poked away during a garbage time-filled fourth quarter. Rodgers was incredible, as always, at Lambeau Field, finding the weaknesses in the Chiefs' defense, particularly in the slot, and exploiting it over and over again. He's now gone 16 consecutive regular-season starts without throwing an interception at home. Three of Rodgers' five scores went to Randall Cobb, and all came on essentially the same exact play. His other two went to James Jones and Ty Montgomery. The Packers travel to dumpster-fire San Francisco in Week 4.")
-		new QB("Russell Wilson", "Seattle Seahwaks", 18, [17.9, 25.98, 24.28], {week1: 17.9 , week2: 25.98, week3: 24.28}, "Taylor added three rushes for 12 yards. The impressive first-year starter got to trade in his helmet for a baseball hat with eight minutes left in the game, as he and the Bills simply ran the Dolphins off their home field. Taylor continued to drop dimes, showing impressive ball placement, and a great sense of anticipation. His 38-yard touchdown to Chris Hogan in the fourth quarter — seriously — was a timing throw befitting of Peyton Manning or Tom Brady. There was a scary moment in the first half where Taylor got his left leg bent backwards on an awkward slide, but he ended up no worse for the wear. The Bills are still going to ask Tayor to caretake more than playmake, but he's shown he's capable of both. He'll be in the QB1 conversation for next week's matchup with the Giants' struggling defense")
+		new QB("Eli Manning", "New York Giants", 20, [8.52, 21.98, 19.16], {week1: "Baltimore Ravens", week2: "Kansas City Chiefs", week3: "Detroit Lions", week4: "Minnesota Vikings"}, "Manning showed more command of the offense with the Broncos running most of their plays out of shotgun. His first touchdown was a 45-yard catch-and-run by Demaryius Thomas, and his second came on a fourth-quarter fade to Owen Daniels. It's the second straight multi-TD game for Manning after his disaster Week 1, but Gary Kubiak's scheme and decline concerns remain going forward. Through three weeks, Manning has 755 yards and a 5:3 TD/INT ratio. Manning will be a mid-range QB1 against the Vikings in Week 4.")
+		new QB("Matt Ryan", "Atlanta Falcons", 24, [16.62, 21.42, 23.10], {week1: "Chicago Bears", week2: "Seattle Seahwaks", week3: "Kansas City Chiefs", week4: "San Francisco 49ers"}, "This game wasn't nearly as close as the final score would suggest. Rodgers and the Packers jumped out to a comfortable 31-7 lead before Alex Smith and the Chiefs poked away during a garbage time-filled fourth quarter. Rodgers was incredible, as always, at Lambeau Field, finding the weaknesses in the Chiefs' defense, particularly in the slot, and exploiting it over and over again. He's now gone 16 consecutive regular-season starts without throwing an interception at home. Three of Rodgers' five scores went to Randall Cobb, and all came on essentially the same exact play. His other two went to James Jones and Ty Montgomery. The Packers travel to dumpster-fire San Francisco in Week 4.")
+		new QB("Russell Wilson", "Seattle Seahwaks", 18, [15.14, 22.04, 16.20], {week1: 17.9 , week2: 25.98, week3: 24.28}, "Taylor added three rushes for 12 yards. The impressive first-year starter got to trade in his helmet for a baseball hat with eight minutes left in the game, as he and the Bills simply ran the Dolphins off their home field. Taylor continued to drop dimes, showing impressive ball placement, and a great sense of anticipation. His 38-yard touchdown to Chris Hogan in the fourth quarter — seriously — was a timing throw befitting of Peyton Manning or Tom Brady. There was a scary moment in the first half where Taylor got his left leg bent backwards on an awkward slide, but he ended up no worse for the wear. The Bills are still going to ask Tayor to caretake more than playmake, but he's shown he's capable of both. He'll be in the QB1 conversation for next week's matchup with the Giants' struggling defense")
 
 		return {
 			QB: QB,
-			qbList: qbList
+			qbList: qbList,
+			compareList: compareList
 		}
 
 	})
@@ -121,6 +124,26 @@ angular.module('fantasy')
 
 		new RB( "Karlos Williams", 
 				"Buffalo Bills", 
+				17, 
+				[11.50 , 10.70, 22.00], 
+				{week1: "Baltimore Ravens", week2: "Kansas City Chiefs", week3: "Detroit Lions", week4: "Minnesota Vikings"},	
+				"'We have to keep C.J. on the field. C.J. has been coming off the field the past three games because he's been nicked up,' Kubiak said. 'Things are going on, and we need to keep him on the field consistently.' Anderson has missed time in the first three games with ankle, toe and head injuries. He has managed to play through all three ailments, but he and the rest of the Broncos running attack has struggled. The positive to take away from these comments is it sounds like Anderson is still the lead back over Ronnie Hillman. Anderson will be a low-end RB2 against the Vikings this week.")
+		new RB( "Demarco Murray", 
+				"Philadelphia Eagles", 
+				7, 
+				[6.80 , 3.40, 3.20], 
+				{week1: "Baltimore Ravens", week2: "Kansas City Chiefs", week3: "Detroit Lions", week4: "Minnesota Vikings"},	
+				"'We have to keep C.J. on the field. C.J. has been coming off the field the past three games because he's been nicked up,' Kubiak said. 'Things are going on, and we need to keep him on the field consistently.' Anderson has missed time in the first three games with ankle, toe and head injuries. He has managed to play through all three ailments, but he and the rest of the Broncos running attack has struggled. The positive to take away from these comments is it sounds like Anderson is still the lead back over Ronnie Hillman. Anderson will be a low-end RB2 against the Vikings this week.")
+
+		new RB( "Matt Forte", 
+				"Chicago Bears", 
+				12, 
+				[16.90 , 0.90, 10.20], 
+				{week1: "Baltimore Ravens", week2: "Kansas City Chiefs", week3: "Detroit Lions", week4: "Minnesota Vikings"},	
+				"'We have to keep C.J. on the field. C.J. has been coming off the field the past three games because he's been nicked up,' Kubiak said. 'Things are going on, and we need to keep him on the field consistently.' Anderson has missed time in the first three games with ankle, toe and head injuries. He has managed to play through all three ailments, but he and the rest of the Broncos running attack has struggled. The positive to take away from these comments is it sounds like Anderson is still the lead back over Ronnie Hillman. Anderson will be a low-end RB2 against the Vikings this week.")
+
+		new RB( "Marshawn Lynch", 
+				"Seattle Seahawks", 
 				17, 
 				[11.50 , 10.70, 22.00], 
 				{week1: "Baltimore Ravens", week2: "Kansas City Chiefs", week3: "Detroit Lions", week4: "Minnesota Vikings"},	
@@ -182,22 +205,41 @@ angular.module('fantasy')
 
 angular.module("fantasy").controller("LineCtrl", ['$scope','userFactory', 'qbFactory', 'rbFactory', 'wrFactory', function ($scope, userFactory, qbFactory, rbFactory, wrFactory) {
 
-  $scope.labels = ["Week 1", "Week 2", "week3"];
-  $scope.series = ['Player', 'Average'];
+  $scope.labels = ["Week 1", "Week 2", "Week 3"]
+  $scope.series = ['Player', 'Average']
   $scope.onClick = function (points, evt) {
-    console.log(points, evt);
-  };
-}]);
+    console.log(points, evt)
+  }
+}])
 
 angular.module("fantasy").controller("DoughnutCtrl",['$scope', 'userFactory', function ($scope, userFactory) {
-  $scope.labels = ["Above Projection", "At Projection", "Under Projection"];
-  $scope.data = [1, 1, 1];
-}]);
+  $scope.labels = ["Above Projection", "At Projection", "Under Projection"]
+  $scope.data = [1, 1, 1]
+}])
 
 angular.module('fantasy')
 	.controller('MainController', ['$scope', 'userFactory', 'qbFactory', 'rbFactory', 'wrFactory', function($scope, userFactory, qbFactory, rbFactory, wrFactory){
 		
 		
+
+		$scope.comparePlayers = function(){
+			for(each in $scope.playersToCompare){
+				console.log($scope.playersToCompare[each])
+				$scope.showCompare = true
+			}
+		}
+
+		
+
+		$scope.toCompare = qbFactory.compareList
+
+		$scope.addToCompare = function(player){
+			console.log($scope.toCompare)
+			$scope.toCompare.push(player)
+		}
+
+
+		$scope.showCompare = false
 
 		$scope.newName = ''
 		$scope.newEmail = ''
