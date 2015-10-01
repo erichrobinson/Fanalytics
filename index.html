@@ -1,6 +1,6 @@
 <html ng-app="fantasy">
 <head>
-	<title></title>
+	<title>Fanalytics</title>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-chart.js/0.8.4/angular-chart.css">
@@ -13,7 +13,7 @@
 
 
 </head>
-<body ng-controller="MainController">
+<body ng-controller="MainController" ng-cloak>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -24,17 +24,16 @@
 				    <span class="icon-bar"></span>				   
       			</button>
       			<div class="container">
-      				<div class="row align-center">
-      					<a class="navbar-brand" href="#">Fantasy Football</a>
+      				<div class="row ">
+      					<a id="navbarTest" class="navbar-brand" href="#">Fanalytics</a>
       				
-      				<form class="form-inline navbar-right col-sm-9">
-      			 	<div class="form-group">
-      			 		<input placeholder="username">
-      			 		<input placeholder="password">
-      			 		<button type="submit" class="btn btn-default">Submit</button>
-      			 	</div>
-      			 	</div>      			 	
-      			 </form> 
+      				<form class="form-inline navbar-right col-sm-9" id="formTest">
+	      			 	<div class="form-group" >
+	      			 		<input placeholder="username">
+	      			 		<input placeholder="password">
+	      			 		<button type="submit" class="btn btn-default">Submit</button>
+	      			 	</div>
+	      			</form> 
       			</div>
       			      			 
 			</div>
@@ -90,7 +89,7 @@
 						<td class="player-name-column">{{qb.name}}</td>
 						<td class="player-team-column">{{qb.team}}</td>
 						<td class="player-stats-column">{{qb.projected}}</td>
-						<td class="player-stats-column">{{qb.points.week1}}</td>
+						<td class="player-stats-column">{{qb.totalPoints}}</td>
 						<td>
 							<button class="btn btn-success player-buttons" ng-click="addToRoster('qb', qb)">+</button>
 							<button class="btn btn-default  player-buttons" ng-click="showNews = !showNews">More</button>							
@@ -132,15 +131,16 @@
 						<div class="col-sm-4 align-center align-top" ng-controller="DoughnutCtrl">
 							<h4 class="text-gold text-md-thin align-top">Performance vs. Projection</h4>
 							<canvas id="doughnut" class="chart chart-doughnut"
-  							chart-data="data" chart-labels="labels">
+  								chart-data="data" chart-labels="labels">
 							</canvas> 
 						</div>
 						<div class="row">
-							<div class="col-sm-12" ng-controller="LineCtrl">
-								<canvas id="line" class="chart chart-line" chart-data="data"
-  chart-labels="labels" chart-legend="true" chart-series="series"
-  chart-click="onClick" >
-</canvas> 
+							<div class="col-sm-12 line-graph" ng-controller="LineCtrl">
+							<h4 class="text-gold text-md-thin align-center">Performance By Week vs. Average</h4>
+								<canvas id="line" class="chart chart-line" chart-data="qb.chart"
+  									chart-labels="labels" chart-legend="true" chart-series="series"
+  									chart-click="onClick" >
+								</canvas> 
 							</div>
 						</div>
 
@@ -150,47 +150,133 @@
 			
 			<div class="col-sm-12" ng-repeat="rb in allRB" ng-show="showRB">
 				<table class="table">
-					<tbody>
+				<tbody>
 					<tr>
 						<td class="player-name-column">{{rb.name}}</td>
 						<td class="player-team-column">{{rb.team}}</td>
 						<td class="player-stats-column">{{rb.projected}}</td>
-						<td class="player-stats-column">{{rb.points.week1}}</td>
+						<td class="player-stats-column">{{rb.totalPoints}}</td>
 						<td>
-							<button class="btn btn-success player-buttons" ng-click="addToRoster('rb',rb)">+</button>
-							<button class="btn btn-default player-buttons" ng-click="showNews = !showNews">More</button>							
+							<button class="btn btn-success player-buttons" ng-click="addToRoster('rb', rb)">+</button>
+							<button class="btn btn-default  player-buttons" ng-click="showNews = !showNews">More</button>							
 						</td>
 					</tr>
 				</tbody>
 				</table>
-				
-				<div class="row" ng-show="showNews">
-					<img class="col-sm-2" ng-src="http://placehold.it/95x108">
-					<h4>News</h4>
-					<div class="player-news col-sm-10">{{rb.news}}</div>
+				<div ng-show="showNews">
+					<div class="row">
+						<img class="col-sm-2" ng-src="http://placehold.it/95x108">
+						<h4>News</h4>
+						<div class="player-news col-sm-10">{{rb.news}}</div>
+					</div>
+					<div class="row player-dashboard">
+						<div class="col-sm-4 align-center player-schedule">
+							<h4 class="text-gold text-md-thin">Schedule</h4>
+							<div ng-repeat="opponent in rb.opponents">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td>{{opponent}}</td>
+											<td>-15%</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							
+						</div>
+						<div class="col-sm-4 align-center">
+							<div>
+								<h4 class="text-gold text-md-thin">This Week</h4>
+								<h4 class="text-black text-lrg">33%</h4>
+							</div>
+							<div>
+								<h4 class="text-gold text-md-thin already-used">Already Used</h4>
+								<h4 class="text-black text-lrg">15%</h4>
+							</div>							
+						</div>
+						<div class="col-sm-4 align-center align-top" ng-controller="DoughnutCtrl">
+							<h4 class="text-gold text-md-thin align-top">Performance vs. Projection</h4>
+							<canvas id="doughnut" class="chart chart-doughnut"
+  								chart-data="data" chart-labels="labels">
+							</canvas> 
+						</div>
+						<div class="row">
+							<div class="col-sm-12 line-graph" ng-controller="LineCtrl">
+							<h4 class="text-gold text-md-thin align-center">Performance By Week vs. Average</h4>
+								<canvas id="line" class="chart chart-line" chart-data="rb.chart"
+  									chart-labels="labels" chart-legend="true" chart-series="series"
+  									chart-click="onClick" >
+								</canvas> 
+							</div>
+						</div>
+
+					</div>															
 				</div>
-				
 			</div>
 
-			<div class="col-sm-12" ng-repeat="wr in allWR" ng-show="showWR" >
-				<table class="table"
-					<tbody>
+			<div class="col-sm-12" ng-repeat="wr in allWR" ng-show="showWR">
+				<table class="table">
+				<tbody>
 					<tr>
-						<td  ng-class="{ strike : checkForMatch(wr) }" class="player-name-column">{{wr.name}}</td>
+						<td class="player-name-column">{{wr.name}}</td>
 						<td class="player-team-column">{{wr.team}}</td>
 						<td class="player-stats-column">{{wr.projected}}</td>
-						<td class="player-stats-column">{{wr.points.week1}}</td>
+						<td class="player-stats-column">{{wr.totalPoints}}</td>
 						<td>
-							<button class="btn btn-success player-buttons" ng-click="addToRoster('wr1',wr)">+</button>
-							<button class="btn btn-default player-buttons" ng-click="showNews = !showNews">More</button>							
+							<button class="btn btn-success player-buttons" ng-click="addToRoster('wr', wr)">+</button>
+							<button class="btn btn-default  player-buttons" ng-click="showNews = !showNews">More</button>							
 						</td>
 					</tr>
 				</tbody>
 				</table>
-				<div class="row" ng-show="showNews">
-					<img class="col-sm-2" ng-src="http://placehold.it/95x108">
-					<h4>News</h4>
-					<div class="player-news col-sm-10">{{wr.news}}</div>
+				<div ng-show="showNews">
+					<div class="row">
+						<img class="col-sm-2" ng-src="http://placehold.it/95x108">
+						<h4>News</h4>
+						<div class="player-news col-sm-10">{{wr.news}}</div>
+					</div>
+					<div class="row player-dashboard">
+						<div class="col-sm-4 align-center player-schedule">
+							<h4 class="text-gold text-md-thin">Schedule</h4>
+							<div ng-repeat="opponent in wr.opponents">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td>{{opponent}}</td>
+											<td>-15%</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							
+						</div>
+						<div class="col-sm-4 align-center">
+							<div>
+								<h4 class="text-gold text-md-thin">This Week</h4>
+								<h4 class="text-black text-lrg">33%</h4>
+							</div>
+							<div>
+								<h4 class="text-gold text-md-thin already-used">Already Used</h4>
+								<h4 class="text-black text-lrg">15%</h4>
+							</div>							
+						</div>
+						<div class="col-sm-4 align-center align-top" ng-controller="DoughnutCtrl">
+							<h4 class="text-gold text-md-thin align-top">Performance vs. Projection</h4>
+							<canvas id="doughnut" class="chart chart-doughnut"
+  								chart-data="data" chart-labels="labels">
+							</canvas> 
+						</div>
+						<div class="row">
+							<div class="col-sm-12 line-graph" ng-controller="LineCtrl">
+							<h4 class="text-gold text-md-thin align-center">Performance By Week vs. Average</h4>
+								<canvas id="line" class="chart chart-line" chart-data="wr.chart"
+  									chart-labels="labels" chart-legend="true" chart-series="series"
+  									chart-click="onClick" >
+								</canvas> 
+							</div>
+						</div>
+
+					</div>															
 				</div>
 			</div>
 		</div>
